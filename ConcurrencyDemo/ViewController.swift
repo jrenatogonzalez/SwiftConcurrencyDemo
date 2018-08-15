@@ -45,29 +45,29 @@ class ViewController: UIViewController {
     }
 
     @IBAction func didClickOnStart(sender: Any) {
-        let queue = DispatchQueue.global(qos: .default)
-        queue.async { () -> Void in
+        let serialQueue = DispatchQueue(label: "com.appcoda.ImagesQueue")
+        serialQueue.async { () -> Void in
             let img1 = Downloader.downloadImageWithURL(url: imageURLs[0])
             DispatchQueue.main.async {
                 self.imageView1.image = img1
             }
         }
         
-        queue.async { () -> Void in
+        serialQueue.async { () -> Void in
             let img2 = Downloader.downloadImageWithURL(url: imageURLs[1])
             DispatchQueue.main.async {
                 self.imageView2.image = img2
             }
         }
         
-        queue.async { () -> Void in
+        serialQueue.async { () -> Void in
             let img3 = Downloader.downloadImageWithURL(url: imageURLs[2])
             DispatchQueue.main.async {
                 self.imageView3.image = img3
             }
         }
         
-        queue.async { () -> Void in
+        serialQueue.async { () -> Void in
             let img4 = Downloader.downloadImageWithURL(url: imageURLs[3])
             DispatchQueue.main.async {
                 self.imageView4.image = img4
