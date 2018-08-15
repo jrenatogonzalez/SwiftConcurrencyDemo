@@ -45,17 +45,34 @@ class ViewController: UIViewController {
     }
 
     @IBAction func didClickOnStart(sender: Any) {
-        let img1 = Downloader.downloadImageWithURL(url: imageURLs[0])
-        self.imageView1.image = img1
+        let queue = DispatchQueue.global(qos: .default)
+        queue.async { () -> Void in
+            let img1 = Downloader.downloadImageWithURL(url: imageURLs[0])
+            DispatchQueue.main.async {
+                self.imageView1.image = img1
+            }
+        }
         
-        let img2 = Downloader.downloadImageWithURL(url: imageURLs[1])
-        self.imageView2.image = img2
+        queue.async { () -> Void in
+            let img2 = Downloader.downloadImageWithURL(url: imageURLs[1])
+            DispatchQueue.main.async {
+                self.imageView2.image = img2
+            }
+        }
         
-        let img3 = Downloader.downloadImageWithURL(url: imageURLs[2])
-        self.imageView3.image = img3
+        queue.async { () -> Void in
+            let img3 = Downloader.downloadImageWithURL(url: imageURLs[2])
+            DispatchQueue.main.async {
+                self.imageView3.image = img3
+            }
+        }
         
-        let img4 = Downloader.downloadImageWithURL(url: imageURLs[3])
-        self.imageView4.image = img4
+        queue.async { () -> Void in
+            let img4 = Downloader.downloadImageWithURL(url: imageURLs[3])
+            DispatchQueue.main.async {
+                self.imageView4.image = img4
+            }
+        }
     }
         
     @IBAction func sliderValueChanged(_ sender: UISlider) {
