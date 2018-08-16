@@ -54,7 +54,7 @@ class ViewController: UIViewController {
             }
         }
         operation1.completionBlock = {
-            print("Operation 1 is completed")
+            print("Operation 1 is completed, cancelled: \(operation1.isCancelled)")
         }
         queue.addOperation(operation1)
         
@@ -65,8 +65,9 @@ class ViewController: UIViewController {
             }
         }
         operation2.completionBlock = {
-            print("Operation 2 is completed")
+            print("Operation 2 is completed, cancelled: \(operation2.isCancelled)")
         }
+        operation2.addDependency(operation1)
         queue.addOperation(operation2)
         
         let operation3 = BlockOperation { () -> Void in
@@ -76,8 +77,9 @@ class ViewController: UIViewController {
             }
         }
         operation3.completionBlock = {
-            print("Operation 3 is completed")
+            print("Operation 3 is completed, cancelled: \(operation3.isCancelled)")
         }
+        operation3.addDependency(operation2)
         queue.addOperation(operation3)
         
         let operation4 = BlockOperation { () -> Void in
@@ -87,11 +89,15 @@ class ViewController: UIViewController {
             }
         }
         operation4.completionBlock = {
-            print("Operation 4 is completed")
+            print("Operation 4 is completed, cancelled: \(operation4.isCancelled)")
         }
         queue.addOperation(operation4)
     }
-        
+    
+    @IBAction func didClickOnCancel(_ sender: Any) {
+        self.queue.cancelAllOperations()
+    }
+    
     @IBAction func sliderValueChanged(_ sender: UISlider) {
         self.sliderValueLabel.text = "\(sender.value * 100.0)"
     }
