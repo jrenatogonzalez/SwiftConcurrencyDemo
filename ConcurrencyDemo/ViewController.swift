@@ -34,6 +34,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var imageView4: UIImageView!
     @IBOutlet weak var sliderValueLabel: UILabel!
     
+    var queue = OperationQueue()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -45,31 +47,30 @@ class ViewController: UIViewController {
     }
 
     @IBAction func didClickOnStart(sender: Any) {
-        let serialQueue = DispatchQueue(label: "com.appcoda.ImagesQueue")
-        serialQueue.async { () -> Void in
+        queue.addOperation { () -> Void in
             let img1 = Downloader.downloadImageWithURL(url: imageURLs[0])
-            DispatchQueue.main.async {
+            OperationQueue.main.addOperation {
                 self.imageView1.image = img1
             }
         }
         
-        serialQueue.async { () -> Void in
+        queue.addOperation { () -> Void in
             let img2 = Downloader.downloadImageWithURL(url: imageURLs[1])
-            DispatchQueue.main.async {
+            OperationQueue.main.addOperation {
                 self.imageView2.image = img2
             }
         }
         
-        serialQueue.async { () -> Void in
+        queue.addOperation { () -> Void in
             let img3 = Downloader.downloadImageWithURL(url: imageURLs[2])
-            DispatchQueue.main.async {
+            OperationQueue.main.addOperation {
                 self.imageView3.image = img3
             }
         }
         
-        serialQueue.async { () -> Void in
+        queue.addOperation { () -> Void in
             let img4 = Downloader.downloadImageWithURL(url: imageURLs[3])
-            DispatchQueue.main.async {
+            OperationQueue.main.addOperation {
                 self.imageView4.image = img4
             }
         }
