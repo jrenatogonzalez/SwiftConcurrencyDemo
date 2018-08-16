@@ -47,33 +47,49 @@ class ViewController: UIViewController {
     }
 
     @IBAction func didClickOnStart(sender: Any) {
-        queue.addOperation { () -> Void in
+        let operation1 = BlockOperation { () -> Void in
             let img1 = Downloader.downloadImageWithURL(url: imageURLs[0])
             OperationQueue.main.addOperation {
                 self.imageView1.image = img1
             }
         }
+        operation1.completionBlock = {
+            print("Operation 1 is completed")
+        }
+        queue.addOperation(operation1)
         
-        queue.addOperation { () -> Void in
+        let operation2 = BlockOperation { () -> Void in
             let img2 = Downloader.downloadImageWithURL(url: imageURLs[1])
             OperationQueue.main.addOperation {
                 self.imageView2.image = img2
             }
         }
+        operation2.completionBlock = {
+            print("Operation 2 is completed")
+        }
+        queue.addOperation(operation2)
         
-        queue.addOperation { () -> Void in
+        let operation3 = BlockOperation { () -> Void in
             let img3 = Downloader.downloadImageWithURL(url: imageURLs[2])
             OperationQueue.main.addOperation {
                 self.imageView3.image = img3
             }
         }
+        operation3.completionBlock = {
+            print("Operation 3 is completed")
+        }
+        queue.addOperation(operation3)
         
-        queue.addOperation { () -> Void in
+        let operation4 = BlockOperation { () -> Void in
             let img4 = Downloader.downloadImageWithURL(url: imageURLs[3])
             OperationQueue.main.addOperation {
                 self.imageView4.image = img4
             }
         }
+        operation4.completionBlock = {
+            print("Operation 4 is completed")
+        }
+        queue.addOperation(operation4)
     }
         
     @IBAction func sliderValueChanged(_ sender: UISlider) {
